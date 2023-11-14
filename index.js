@@ -28,7 +28,13 @@ app.get('/listings', (req, res) => {
     res.render('listings')
 })
 
+app.get('/profile', (req, res) => {
+    res.render('profile')
+})
 
+app.get('/details', (req, res) => {
+    res.render('details')
+})
 
 
 

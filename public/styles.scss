@@ -1,4 +1,43 @@
-$primary:  #47D29B;
-$bg-body-tertiary: #8C7345;
+$primary: #8c7345;
+$bg-color: #0f2334;
+$logo-text: #F2F2F2;
+$black-color: black;
+
+main {
+  background-color: $bg-color;
+  min-height: calc(100vh - 0.5rem);
+}
+
+nav,
+footer {
+  background-color: $primary;
+}
+
+footer {
+  height: 0,25rem;
+}
+
+footer a {
+  color: $black-color;
+}
+
+.logo-text {
+  color: $logo-text;
+  font-family: 'Cinzel', serif;
+  font-size: 30px;
+}
+
+span {
+  color: $primary ;
+}
+
+.form-label {
+  color: $logo-text;
+}
+
+.white-text {
+  color: $logo-text;
+  font-size: 20px
+}
 
 @import "../node_modules/bootstrap/scss/bootstrap";
