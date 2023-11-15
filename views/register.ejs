@@ -4,7 +4,41 @@
         <%- include('partials/nav')%>
     </header>
     <main>
-
+        <div class="container">
+            <div class="row justify-content-around d-flex align-items-center">
+                <div class="col-lg-4 mt-5 p-2">
+                    <img src="images/veronika-jorjobert-CYesIXViKFs-unsplash.jpg" alt="a painting of flowers" style="width: 400px;">   
+                </div>
+                <div class="col-lg-5 mt-5 p-2">
+                    <form>
+                        <div class="mb-3">
+                            <label for="userName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="userName" aria-describedby="name">
+                          </div>
+                        <div class="mb-3">
+                          <label for="userEmail" class="form-label">Email</label>
+                          <input type="email" class="form-control" id="userEmail" aria-describedby="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="userPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="userPassword">
+                        </div>
+                        <div class="mb-3">
+                            <label for="userAvatar" class="form-label">Avatar</label>
+                            <div class="input-group">
+                              <span class="input-group-text" id="basic-addon3">add a link</span>
+                              <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 mt-5">
+                            <button type="submit" class="btn btn-primary">REGISTER</button>
+                        </div>    
+                      </form>
+                </div>
+            </div>
+        
+        </div>
     </main>
     <%- include('partials/footer')%>
 </body>
+</html>

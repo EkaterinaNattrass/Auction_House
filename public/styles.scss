@@ -40,4 +40,8 @@ span {
   font-size: 20px
 }
 
+.listing-container {
+  background-color: $logo-text;
+}
+
 @import "../node_modules/bootstrap/scss/bootstrap";

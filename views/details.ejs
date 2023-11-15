@@ -1,14 +1,103 @@
 <%- include('partials/head')%>
 <body>
-    <header>
-        <%- include('partials/nav')%>
-    </header>
-    <main>
-
-    </main>
-    <%- include('partials/footer')%>
-    <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
+  <header><%- include('partials/nav')%></header>
+  <main>
+    <div class="container p-3">
+      <div class="listing-container p-5">
+        <div class="row">
+          <div class="col-lg-4">
+            <div id="carousel" class="carousel slide">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img
+                    src="images/europeana-5TK1F5VfdIk-unsplash.jpg"
+                    class="d-block w-100"
+                    alt="listing"
+                  />
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="images/steve-johnson-3Sf_G9m0gcQ-unsplash.jpg"
+                    class="d-block w-100"
+                    alt="listing"
+                  />
+                </div>
+                <div class="carousel-item">
+                  <img
+                    src="images/europeana-5TK1F5VfdIk-unsplash.jpg"
+                    class="d-block w-100"
+                    alt="listing"
+                  />
+                </div>
+              </div>
+              <button
+                class="carousel-control-prev"
+                type="button"
+                data-bs-target="#carousel"
+                data-bs-slide="prev"
+              >
+                <span
+                  class="carousel-control-prev-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button
+                class="carousel-control-next"
+                type="button"
+                data-bs-target="#carousel"
+                data-bs-slide="next"
+              >
+                <span
+                  class="carousel-control-next-icon"
+                  aria-hidden="true"
+                ></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <h1>NAME</h1>
+            <h2>current bid $$$</h2>
+            <h3>Listed: User</h3>
+            <h3>Ends: 11-11-2011</h3>
+            <div>
+              The Celestial Sparkler: A mesmerizing 5-carat diamond pendant that
+              mirrors the brilliance of a starlit night. This celestial-inspired
+              piece is a celestial embodiment of sophistication and glamour
+            </div>
+            <div>
+              <ul>
+                <li>Bid $$$</li>
+                <li>Bid $$$</li>
+                <li>Bid $$$</li>
+              </ul>
+            </div>
+            <form class="row g-3">
+              <div class="col-auto">
+                <label for="bid" class="visually-hidden">YOUR BID</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="bid"
+                  placeholder="YOUR BID"
+                />
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-3">
+                  CONFIRM YOUR BID
+                </button>
+              </div>
+            </form>
+            
+              <a href="/listings" class="btn btn-outline-primary mt-4">BACK TO THE LISTINGS</a>
+         
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer')%>
 </body>
+</html>
