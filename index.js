@@ -9,6 +9,7 @@ const sassMiddleware = require('node-sass-middleware');
 
 const loginUser = require('./modules/login');
 const registerUser = require('./modules/register');
+const getListings = require('./modules/getListings');
 
 const fetch = (...args) => import ('node-fetch').then(({default : fetch}) => fetch(...args));
 
@@ -60,7 +61,6 @@ app.post('/login-form', async(req, res) => {
         req.session.userName = loggedInUser.userName;
         req.session.credits = loggedInUser.credits;
         req.session.avatar = loggedInUser.avatar;
-        console.log('went through')
         res.render('listings');
     } else {
         // req.flash ('loginError', loggedInUser.error + '...Something went wrong. Please, try again');
@@ -89,10 +89,10 @@ app.post('/register-form', async(req, res) => {
     }
 })
 
-
-
-app.get('/listings', (req, res) => {
-    res.render('listings')
+app.get('/listings', async (req, res) => {
+    const listings = await getListings();
+    console.log(listings);
+    res.render('listings', { listings })
 })
 
 app.get('/profile', (req, res) => {

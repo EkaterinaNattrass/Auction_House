@@ -36,37 +36,27 @@
                     </div>
                   </div>     
             </div>
-            <div class="col-lg-8 mt-5 p-2">
-                <div class="row justify-content-around">
-                <div class="card" style="width: 20rem;">
-                    <a href="/details"><img src="images/europeana-5TK1F5VfdIk-unsplash.jpg" class="card-img-top mt-2" alt="..."></a>
-                    <div class="card-body">
-                     <h5 class="card-title">NAME</h5>
+            <% for (let listing of listings) { %>
+<div class="col-lg-8 mt-5 p-2">
+   <div class="row justify-content-around">
+    <div class="card" style="width: 20rem;">
+      <a href="/details"><img src="<%= listing.media %>" class="card-img-top mt-2" alt="..."></a>
+   <div class="card-body">
+                     <h5 class="card-title"><%= listing.title %></h5>
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item">CURRENT BID $$$</li>
-                        <li class="list-group-item">ENDS: 11.11.2021</li>
+                        <li class="list-group-item">ENDS: <%= listing.endsAt %> </li>
                       </ul>
                     </div>
-                </div>
-                <div class="card" style="width: 20rem;">
-                    <a href="/details"><img src="images/europeana-5TK1F5VfdIk-unsplash.jpg" class="card-img-top mt-2" alt="..."></a>
-                    <div class="card-body">
-                     <h5 class="card-title">NAME</h5>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item">CURRENT BID $$$</li>
-                        <li class="list-group-item">ENDS: 11.11.2021</li>
-                      </ul>
-                    </div>
-                </div>
-                <div class="card" style="width: 20rem;">
-                    <a href="/details"><img src="images/europeana-5TK1F5VfdIk-unsplash.jpg" class="card-img-top mt-2" alt="..."></a>
-                    <div class="card-body">
-                     <h5 class="card-title">NAME</h5>
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item">CURRENT BID $$$</li>
-                        <li class="list-group-item">ENDS: 11.11.2021</li>
-                      </ul>
-                    </div>
+    </div>
+   </div>
+</div>
+          <%  } %>
+            
+               
+                
+                    
+                    
                 </div>
             </div>
             </div>
