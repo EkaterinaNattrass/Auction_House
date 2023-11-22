@@ -1,6 +1,6 @@
 <%- include('partials/head')%>
 <body>
-  <header><%- include('partials/nav-home')%></header>
+  <header><%- include('partials/nav')%></header>
   <main>
     <div class="flex-container">
       <div class="row justify-content-around d-flex align-items-center">
@@ -15,36 +15,41 @@
           </div>
         </div>
         <div class="col-lg-3 col-md-10 mt-5 p-2">
-          <form action="/listings" method="POST" id="login-form">
+          <form action="/login-form" method="POST" id="login-form">
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label"
+              <label for="email" class="form-label"
                 >Email address</label
               >
               <input
                 type="email"
                 class="form-control"
-                id="exampleInputEmail1"
-                aria-describedby="emailHelp"
+                id="email"
+                name="email"
+                aria-label="email"
+                required
               />
             </div>
             <div class="mb-3">
-              <label for="exampleInputPassword1" class="form-label"
+              <label for="password" class="form-label"
                 >Password</label
               >
               <input
                 type="password"
                 class="form-control"
-                id="exampleInputPassword1"
+                id="password"
+                name="password"
+                aria-label="password"
+                required
               />
             </div>
             <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary mt-4">LOG IN</button>
+              <input type="submit" class="btn btn-primary mt-4" value='LOG IN'>
             </div>
           </form>
           <div class="white-text p-2 mt-3">
             Not registered? <a href="/register">Create an account</a>
           </div>
-          <div class="d-grid gap-2 mt-5">
+          <div class="d-grid gap-2 my-5">
             <a href="/listings" class="btn btn-primary mt-4">BROWSE</a>
           </div>
         </div>

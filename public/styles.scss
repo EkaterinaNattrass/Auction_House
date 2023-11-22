@@ -2,6 +2,7 @@ $primary: #8c7345;
 $bg-color: #0f2334;
 $logo-text: #F2F2F2;
 $black-color: black;
+$logo-font: 'Cinzel', serif;
 
 main {
   background-color: $bg-color;
@@ -11,6 +12,7 @@ main {
 nav,
 footer {
   background-color: $primary;
+  font-family: $logo-font;
 }
 
 footer {
@@ -23,8 +25,9 @@ footer a {
 
 .logo-text {
   color: $logo-text;
-  font-family: 'Cinzel', serif;
+  font-family: $logo-font;
   font-size: 30px;
+ 
 }
 
 span {
@@ -42,6 +45,10 @@ span {
 
 .listing-container {
   background-color: $logo-text;
+}
+
+.full-screen {
+  height: 100vh;
 }
 
 @import "../node_modules/bootstrap/scss/bootstrap";
