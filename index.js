@@ -10,6 +10,7 @@ const sassMiddleware = require('node-sass-middleware');
 const loginUser = require('./modules/login');
 const registerUser = require('./modules/register');
 const getListings = require('./modules/getListings');
+const getOneListing = require('./modules/getOneListing');
 
 const fetch = (...args) => import ('node-fetch').then(({default : fetch}) => fetch(...args));
 
@@ -61,7 +62,7 @@ app.post('/login-form', async(req, res) => {
         req.session.userName = loggedInUser.userName;
         req.session.credits = loggedInUser.credits;
         req.session.avatar = loggedInUser.avatar;
-        res.render('listings');
+        res.redirect('listings');
     } else {
         // req.flash ('loginError', loggedInUser.error + '...Something went wrong. Please, try again');
         res.redirect('/');
@@ -95,12 +96,14 @@ app.get('/listings', async (req, res) => {
     res.render('listings', { listings })
 })
 
-app.get('/profile', (req, res) => {
-    res.render('profile')
+app.get('/listings/:id', async(req,res) => {
+    id = req.params.id;
+    const listing = await getOneListing(id);
+    res.render('details', { listing });
 })
 
-app.get('/details', (req, res) => {
-    res.render('details')
+app.get('/profile', (req, res) => {
+    res.render('profile')
 })
 
 app.get('/about', (req, res) => {

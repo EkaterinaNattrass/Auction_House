@@ -27,7 +27,6 @@ footer a {
   color: $logo-text;
   font-family: $logo-font;
   font-size: 30px;
- 
 }
 
 span {
@@ -42,13 +41,22 @@ span {
   color: $logo-text;
   font-size: 20px
 }
-
+ 
 .listing-container {
   background-color: $logo-text;
 }
 
 .full-screen {
   height: 100vh;
+}
+
+.top-btn {
+  color: #F2F2F2;
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  cursor: pointer;
 }
 
 @import "../node_modules/bootstrap/scss/bootstrap";
