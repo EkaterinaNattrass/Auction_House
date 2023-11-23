@@ -4,25 +4,18 @@
   <main>
     <div class="container p-3">
       <div class="row justify-content-around">
-        <div><div class="col-lg-4">
-          <div class="card mt-5 mb-5 p-2">
-            <div class="card-header">
-              <img
-                src="images/alexander-schimmeck-CCJGadKQXxI-unsplash.jpg"
-                class="rounded-circle p-2"
-                style="width: 50px; height: 50px"
-                alt="avatar"
-              />Profile name
+          <div class="col-lg-4 mt-5">
+            <div class="card p-2">
+              <div class="card-header"><img src="<%= listing.media[0] %>" class="rounded-circle p-2" style="width: 50px; height: 50px;"  alt="avatar"/> Profile name</div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item"> credits </li>
+                <li class="list-group-item"> wins(?)</li>
+              </ul>
             </div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">credits</li>
-              <li class="list-group-item">wins(?)</li>
-            </ul>
           </div>
-        </div>
-        <div class="listing-container col-lg-6 p-5">
-          <div class="row">
-            <div class="col-lg-4">
+          <div class="col-lg-6 mt-5">
+          <div class="card mb-3 p-2" style="max-width: 600px">
+            <div class="row g-0">
               <div id="carousel" class="carousel slide">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
@@ -68,12 +61,22 @@
                   <span class="visually-hidden">Next</span>
                 </button>
               </div>
-            </div>
-            <div class="col-lg-5">
-              <h1><%= listing.title %></h1>
-              <h2>current bid <%= listing._count.bid %></h2>
-              <h3>Ends: <%= listing.endsAt %></h3>
-              <div><%= listing.description %></div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><%= listing.title %></h5>
+                  <p class="card-text"><%= listing.description %></p>
+                  <p class="card-text">
+                    <small class="text-body-secondary"
+                      >Ends: <%= listing.endsAt %></small
+                    >
+                  </p>
+                  <p class="card-text">
+                    <small class="text-body-secondary"
+                      >current bid <%= listing._count.bid %></small
+                    >
+                  </p>
+                </div>
+              </div>
               <form class="row g-3">
                 <div class="col-auto">
                   <label for="bid" class="visually-hidden">YOUR BID</label>
@@ -90,18 +93,14 @@
                   </button>
                 </div>
               </form>
-  
-              <a href="/listings" class="btn btn-outline-primary mt-4"
+              <div class="g-3 mb-3"><a href="/listings" class="btn btn-outline-primary mt-4"
                 >BACK TO THE LISTINGS</a
-              >
+              ></div>
             </div>
           </div>
-        </div>
+          </div>
         </div>
       </div>
-
-      
-    </div>
   </main>
   <%- include('partials/footer')%>
 </body>
