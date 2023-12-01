@@ -11,6 +11,11 @@ const loginUser = require('./modules/login');
 const registerUser = require('./modules/register');
 const getListings = require('./modules/getListings');
 const getOneListing = require('./modules/getOneListing');
+const getProfile = require('./modules/getProfile');
+const getProfileListings = require('./modules/getProfileListings');
+const createListing = require('./modules/createListing');
+const AppError = require('./modules/AppError');
+const catchAsync = require('./modules/catchAsync');
 
 const fetch = (...args) => import ('node-fetch').then(({default : fetch}) => fetch(...args));
 
@@ -49,25 +54,23 @@ app.get('/', (req, res) => {
     })
 });
 
-app.get('/login-form', async (req, res) => {
-    res.redirect('listings');
-})
+app.get('/login-form', catchAsync(async (req, res) => {
+    res.redirect('profile');
+}));
 
-app.post('/login-form', async(req, res) => {
+app.post('/login-form', catchAsync(async(req, res) => {
 
     const loggedInUser = await loginUser(req.body);
 
     if (loggedInUser.success) {
         req.session.token = loggedInUser.token;
         req.session.userName = loggedInUser.userName;
-        req.session.credits = loggedInUser.credits;
-        req.session.avatar = loggedInUser.avatar;
-        res.redirect('listings');
+        res.redirect('profile');
     } else {
         // req.flash ('loginError', loggedInUser.error + '...Something went wrong. Please, try again');
         res.redirect('/');
     }
-});
+}));
 
 app.get('/register', (req, res) => {
     res.render('register', {
@@ -75,42 +78,58 @@ app.get('/register', (req, res) => {
     })
 });
 
-app.get('/register-form', async(req, res) => {
+app.get('/register-form', catchAsync(async(req, res) => {
     res.redirect('/register')
-});
+}));
 
-app.post('/register-form', async(req, res) => {
+app.post('/register-form', catchAsync(async(req, res) => {
 
     const registeredUser = await registerUser(req.body);
+    res.redirect('profile');
 
     if(!registeredUser.success) {
         req.flash('registerError', registeredUser.error + '...Something went wrong. Please, try again');
-        res.redirect('/listings');
         return;
     }
-})
+}));
 
-app.get('/listings', async (req, res) => {
+app.get('/listings', catchAsync(async (req, res) => {
     const listings = await getListings();
-    console.log(listings);
-    res.render('listings', { listings })
-})
+    const profile = await getProfile(req.session.userName, req.session.token)
+    res.render('listings', { listings, profile })
+}));
 
-app.get('/listings/:id', async(req,res) => {
+app.get('/listings/:id', catchAsync(async(req,res) => {
     id = req.params.id;
     const listing = await getOneListing(id);
     res.render('details', { listing });
-})
+}));
 
-app.get('/profile', (req, res) => {
-    res.render('profile')
-})
+app.get('/profile', catchAsync(async (req, res) => {
+    const profile = await getProfile(req.session.userName, req.session.token);
+    userName = req.session.userName;
+    const listings = profile.listings;
+    res.render('profile', { profile, listings })
+}));
+
+app.post('/create-listing', catchAsync(async(req, res, next) => {
+    const listingData = req.body;
+    success = createListing(listingData, req.session.token);
+    res.redirect('listings');
+}));
 
 app.get('/about', (req, res) => {
     res.render('about')
 })
 
+/* app.all('*', (req, res, next) => {
+    next(new AppError('Page not found', 404))
+})
 
-
+app.use((err, req, res, next) => {
+    const { statusCode = 500 } = err;
+    if (!err.message) err.message = 'Oh no, Something went wrong!'
+    res.status(statusCode).render('error');
+}) */
 
 app.listen(3000, () => {console.log('listening on port')});

@@ -9,24 +9,37 @@ main {
   min-height: calc(100vh - 0.5rem);
 }
 
+/*  * {
+  border: solid red 1px;
+}*/
+
 nav,
 footer {
   background-color: $primary;
   font-family: $logo-font;
+  font-size: 18px;
+  font-weight: bold;
+
 }
 
 footer {
-  height: 0,25rem;
+  min-height: 0.25rem;
 }
 
 footer a {
   color: $black-color;
+  text-decoration: none;
 }
 
 .logo-text {
   color: $logo-text;
   font-family: $logo-font;
   font-size: 30px;
+}
+
+.auction-logo {
+  width: 100%;
+  height: auto;
 }
 
 span {
@@ -41,13 +54,16 @@ span {
   color: $logo-text;
   font-size: 20px
 }
+
+.about-text {
+  color: $logo-text;
+  font-family: $logo-font;
+  font-size: 22px;
+  line-height: 3;
+}
  
 .listing-container {
   background-color: $logo-text;
-}
-
-.full-screen {
-  height: 100vh;
 }
 
 .top-btn {

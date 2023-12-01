@@ -18,6 +18,7 @@ const registerUser = async function (userData) {
     try {
         const res = await fetch(url, options);
         const data = await res.json();
+        console.log(data);
         statusCode = res.status;
         
         if (statusCode === 201) {

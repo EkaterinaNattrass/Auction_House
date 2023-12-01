@@ -1,10 +1,13 @@
-<footer class="p-2">
+<footer class="p-4">
   <div class="row justify-content-around">
     <div class="col-lg-2 p-2">
-      <div class="footer"><a href="/contacts">Contacts</a></div>
+      <div class="footer"><a href="https://maps.app.goo.gl/Va1vCEVWQ2M9bYdj9">Contacts</a></div>
     </div>
     <div class="col-lg-2 p-2">
       <div class="footer"><a href="/about">About us</a></div>
+    </div>
+    <div class="col-lg-2 p-2">
+      <div class="footer"><a href="/register">Register</a></div>
     </div>
     <div class="col-lg-2 p-2">
       <a href="https://www.instagram.com/"
@@ -23,3 +26,21 @@
   integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
   crossorigin="anonymous"
 ></script>
+<script>
+  ( validateForm = () => {
+  'use strict'
+
+  const forms = document.querySelectorAll('.validated-form')
+
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>

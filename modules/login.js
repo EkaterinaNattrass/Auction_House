@@ -1,13 +1,11 @@
 const loginUser = async function (userData) {
 
     const url = 'https://api.noroff.dev/api/v1/auction/auth/login';
-
+   
     returnObj = {
         'success': false,
         'userName': "",
         'token': "",
-        'credits': "",
-        'avatar': "",
         'error': null
     }
 
@@ -19,9 +17,10 @@ const loginUser = async function (userData) {
         body: JSON.stringify(userData)
     };
 
-    try{
+    try {
         const res = await fetch(url, options);
         const data = await res.json();
+        console.log(data);
         statusCode = res.status;
 
         if (statusCode === 200) {

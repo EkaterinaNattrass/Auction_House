@@ -3,13 +3,13 @@
   <header><%- include('partials/nav-loggedin')%></header>
   <main>
     <div class="container">
-      <div class="row justify-content-around">
+      <div class="row justify-content-around align-items-center">
         <div class="col-lg-4 mt-5 text-center">
           <img
-            src="/images/pawel-czerwinski-Cb1bLUz2oio-unsplash.jpg"
+            src="/images/alexander-schimmeck-CCJGadKQXxI-unsplash.jpg"
             alt="avatar"
             class="rounded-circle"
-            style="height: 250px; width: 250px"
+            style="height: 300px; width: 300px"
           />
           <div class="g-3 mb-3">
             <a href="/avatar" class="btn btn-outline-primary mt-4"
@@ -19,97 +19,64 @@
         </div>
         <div class="col-lg-4 mt-5">
           <div class="card p-3 mb-5">
-            <div class="card-header">NAME</div>
+            <div class="card-header"><span>Profile name:</span> <%= profile.name.toUpperCase() %></div>
             <ul class="list-group list-group-flush">
-              <li class="list-group-item">email</li>
-              <li class="list-group-item">number of credits</li>
+              <li class="list-group-item"><span>Profile email:</span> <%= profile.email %></li>
+              <li class="list-group-item"><span>Credits:</span>
+                You have <%= profile.credits %> credits
+              </li>
             </ul>
           </div>
+          <% if (listings.length >= 1) %>
           <div class="card p-3">
             <div class="card-header">YOUR LISTINGS</div>
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                listing 1
-                <div class="g-3 mb-3">
-                  <a href="/listing" class="btn btn-outline-primary mt-4"
-                    >UPDATE</a
-                  >
-                </div>
-              </li>
-              <li class="list-group-item">
-                listing 2
-                <div class="g-3 mb-3">
-                  <a href="/listing" class="btn btn-outline-primary mt-4"
-                    >UPDATE</a
-                  >
-                </div>
-              </li>
-              <li class="list-group-item">
-                listing 3
-                <div class="g-3 mb-3">
-                  <a href="/listing" class="btn btn-outline-primary mt-4"
-                    >UPDATE</a
-                  >
-                </div>
-              </li>
+            <% { for (listing of listings) { %>
+            <div>
+            <ul class="list-group list-group-flush"> 
+              <li class="list-group-item"><%= listing.title.toUpperCase() %></li>
+              <li class="list-group-item"><%= listing.description %> </li>
             </ul>
-          </div>
+             <div class="g-3 mb-3">
+              <a href="/listing" class="btn btn-primary mt-4">UPDATE</a>
+              <a href="/listing" class="btn btn-outline-primary mt-4">DELETE</a>
+            </div>
+            </div><% } %>
+            </div><% } %>
+            <% if (listings.length = 0) { %>
+            <div class="card p-3">
+              <div>You currently don't have any listings</div>
+            </div>
+            <% } %>
         </div>
-        <div class="col-lg-4 mt-5">
+        <div class="col-lg-4 mt-5 mb-5">
           <div class="card p-3">
-              <div>CREATE A NEW LISTING</div>
-              <form action="/listings" method="POST">
-                <div class="mb-3 mt-2">
-                  <label for="title" class="form-label">Title</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="title"
-                    name="title"
-                    aria-label="title"
-                    required
-                  />
-                </div>
-                <div class="mb-3 mt-2">
-                  <label for="endsAt" class="form-label">Deadline date</label>
-                  <input
-                    type="date"
-                    class="form-control"
-                    id="endsAt"
-                    name="endsAt"
-                    aria-label="deadline date"
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="description" class="form-label"
-                    >Description</label
-                  >
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="description"
-                    name="description"
-                    aria-label="title"
-                    required
-                  />
-                </div>
-                <div class="mb-3">
-                    <label for="media" class="form-label"
-                      >Media</label
-                    >
-                    <input
-                      type="text"
-                      class="form-control"
-                      id="media"
-                      name="media"
-                      aria-label="media"
-                      required
-                    />
-                  </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
-            </ul>
+            <div>CREATE A NEW LISTING</div>
+            <form action="/create-listing" method="POST" novalidate class="validated-form">
+              <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <textarea class="form-control" id="title" name="title" aria-label="title of a new listing" rows="1"
+                 required></textarea>
+                 <div class="valid-feedback">Looks good!</div>
+              </div>
+             <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" aria-label="description of a new listing" rows="3"
+                 required></textarea>
+                 <div class="valid-feedback">Looks good!</div>
+              </div>
+              <div class="mb-3">
+                <label for="endsAt" class="form-label">Deadline</label>
+                <input type="datetime-local" id="endsAt" name="endsAt" value="2023-12-01T00:00:00" required>
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+             <div class="mb-3">
+                <label for="media" class="form-label">Media</label>
+                <textarea class="form-control" id="media" name="media" aria-label="images of a new listing" rows="1"
+                required ></textarea>
+                <div class="valid-feedback">Looks good!</div>
+              </div>
+              <input type="submit" class="btn btn-primary" value="Submit">
+            </form>
           </div>
         </div>
       </div>
