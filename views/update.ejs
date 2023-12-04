@@ -1,0 +1,69 @@
+<%- include('partials/head')%>
+<body>
+  <header><%- include('partials/nav-loggedin')%></header>
+  <main>
+    <div class="container">
+        <div class="card-header">CREATE A NEW LISTING</div>
+        <form
+          action="/listings/<%= listing.id %>?_method=PUT"
+          method="POST"
+          novalidate
+          class="validated-form"
+        >
+          <div class="my-3">
+            <label for="title" class="form-label">Title</label>
+            <textarea
+              class="form-control"
+              id="title"
+              name="title"
+              aria-label="title of a new listing"
+              rows="1"
+              required
+            ><%= listing.title %></textarea>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="my-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea
+              class="form-control"
+              id="description"
+              name="description"
+              aria-label="description of a new listing"
+              rows="3"
+              required
+            ><%= listing.description %></textarea>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="my-3">
+            <label for="endsAt" class="form-label p-2">Deadline</label>
+            <input
+              type="datetime-local"
+              id="endsAt"
+              name="endsAt"
+              value="2023-12-01T00:00:00"
+              required
+            />
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="my-3">
+            <label for="media" class="form-label">Media</label>
+            <textarea
+              class="form-control"
+              id="media"
+              name="media"
+              aria-label="images of a new listing"
+              rows="1"
+            ><%= listing.media %></textarea>
+            <div class="valid-feedback">Looks good!</div>
+          </div>
+          <div class="d-grid gap-2">
+            <input type="submit" class="btn btn-primary" value="UPDATE" />
+          </div>
+        </form>
+      </div> 
+    </div>
+
+</main>
+<%- include('partials/footer')%>
+</body>
+</html>

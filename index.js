@@ -14,6 +14,7 @@ const getOneListing = require('./modules/getOneListing');
 const getProfile = require('./modules/getProfile');
 const getProfileListings = require('./modules/getProfileListings');
 const createListing = require('./modules/createListing');
+const updateListing = require('./modules/updateListing');
 const deleteListing = require('./modules/delete');
 const AppError = require('./modules/AppError');
 const catchAsync = require('./modules/catchAsync');
@@ -118,6 +119,19 @@ app.post('/create-listing', catchAsync(async(req, res, next) => {
     success = createListing(listingData, req.session.token);
     res.redirect('profile');
 }));
+
+app.get('/listings/:id/update', async (req, res) => {
+    id = req.params.id;
+    listing = await getOneListing( id, req.session.token);
+    res.render('update', { id });
+})
+
+app.put('/listings/:id', async (req, res) => {
+    id = req.params.id;
+    updatedListing = req.body;
+    success = await updateListing (updatedListing, id, req.session.token);
+    res.redirect('/profile');
+})
 
 app.delete('/listings/:id', async (req,res) => {
     id = req.params.id;

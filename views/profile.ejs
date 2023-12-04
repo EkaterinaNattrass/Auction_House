@@ -99,7 +99,8 @@
                     <li class="list-group-item"><%= listing.description %></li>
                   </ul>
                   <div>
-                    <a href="/listings/<%= listing.id %>/edit" method="GET" class="btn btn-primary mt-4">UPDATE</a>
+                    <form action="/listings/<%= listing.id %>/update" method="GET">
+                      <input type="submit" class="btn btn-primary mt-4" value="update" />
                     <form action="/listings/<%= listing.id %>/?_method=DELETE" method="POST">
                       <input type="submit" class="btn btn-outline-primary mt-4" value="Delete" />
                   </form>
