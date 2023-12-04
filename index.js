@@ -14,6 +14,7 @@ const getOneListing = require('./modules/getOneListing');
 const getProfile = require('./modules/getProfile');
 const getProfileListings = require('./modules/getProfileListings');
 const createListing = require('./modules/createListing');
+const deleteListing = require('./modules/delete');
 const AppError = require('./modules/AppError');
 const catchAsync = require('./modules/catchAsync');
 
@@ -115,8 +116,14 @@ app.get('/profile', catchAsync(async (req, res) => {
 app.post('/create-listing', catchAsync(async(req, res, next) => {
     const listingData = req.body;
     success = createListing(listingData, req.session.token);
-    res.redirect('listings');
+    res.redirect('profile');
 }));
+
+app.delete('/listings/:id', async (req,res) => {
+    id = req.params.id;
+    deletedListing = await deleteListing( id, req.session.token);
+    res.redirect('/profile');
+})
 
 app.get('/about', (req, res) => {
     res.render('about')
