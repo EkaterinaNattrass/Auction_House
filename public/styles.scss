@@ -17,8 +17,16 @@ nav,
 footer {
   background-color: $primary;
   font-family: $logo-font;
+  color: $logo-text;
   font-size: 18px;
   font-weight: bold;
+}
+
+.nav-text {
+  font-family: $logo-font;
+  text-decoration: none;
+  color: $logo-text;
+  font-size: 18px;
 }
 
 footer {
@@ -26,7 +34,7 @@ footer {
 }
 
 footer a {
-  color: $black-color;
+  color: $logo-text;
   text-decoration: none;
 }
 
@@ -72,6 +80,10 @@ span {
   bottom: 20px;
   right: 30px;
   cursor: pointer;
+}
+
+.error-message {
+  color: #F2F2F2;
 }
 
 @import "../node_modules/bootstrap/scss/bootstrap";

@@ -14,7 +14,16 @@
             YOUR <span>TREASURES</span> AWAIT!
           </div>
         </div>
-        <div class="col-lg-4 col-sm-8">
+        <div class="col-lg-4 col-sm-8 my-5">
+          <% if ( failedLoginMessage.length > 0) { %>
+            <div class="error-message text-center p-3">
+                <% failedLoginMessage.forEach ( message => { %>
+                    <p>
+                      <i class="fa-solid fa-triangle-exclamation"></i>  <%= message %>
+                    </p>
+                    <% }); %>
+            </div>
+            <% } %>
           <form action="/login-form" method="POST" id="login-form">
             <div class="mb-3">
               <label for="email" class="form-label"
@@ -47,7 +56,7 @@
             </div>
           </form>
           <div class="white-text mt-3">
-            Not registered? <a href="/register">Create an account</a>
+            Not registered? <a href="/register-form">Create an account</a>
           </div>
           <div class="d-grid gap-2 my-5">
             <a href="/listings" class="btn btn-primary mt-4">BROWSE</a>

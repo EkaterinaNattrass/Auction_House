@@ -1,16 +1,18 @@
 <%- include('partials/head')%>
 <body>
-  <header><%- include('partials/nav')%></header>
+  <header><%- include('partials/nav-loggedin')%></header>
   <main>
     <div class="container p-3">
       <div class="row justify-content-around">
           <div class="col-lg-4 mt-5">
             <div class="card p-2">
-              <div class="card-header"><img src="<%= listing.media[0] %>" class="rounded-circle p-2" style="width: 50px; height: 50px;"  alt="avatar"/> Profile name</div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item"> credits </li>
-                <li class="list-group-item"> wins(?)</li>
-              </ul>
+              <div class="card-header">
+                <% if (profile.media) { %>
+                <img src="<%= profile.media %>" class="rounded-circle p-2" style="width: 50px; height: 50px;"  alt="avatar"/>
+              <% } %>
+                <p><%= profile.name.toUpperCase() %></p> 
+              </div>
+              <p class="p-2">You currently have <%= profile.credits %> credits </p>
             </div>
           </div>
           <div class="col-lg-6 mt-5">
@@ -77,23 +79,22 @@
                   </p>
                 </div>
               </div>
-              <form class="row g-3">
+              <form class="row g-3" method="POST" action="/listings/bid" >
                 <div class="col-auto">
                   <label for="bid" class="visually-hidden">YOUR BID</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="bid"
+                    name="bid"
                     placeholder="YOUR BID"
                   />
                 </div>
                 <div class="col-auto">
-                  <button type="submit" class="btn btn-primary mb-3">
-                    CONFIRM YOUR BID
-                  </button>
+                  <input type="submit" class="btn btn-primary mb-3" value="CONFIRM YOUR BID" />
                 </div>
               </form>
-              <div class="g-3 mb-3"><a href="/listings" class="btn btn-outline-primary mt-4"
+              <div class="g-3 mb-3"><a href="/listings-loggedin" class="btn btn-outline-primary mt-4"
                 >BACK TO THE LISTINGS</a
               ></div>
             </div>

@@ -15,34 +15,7 @@
               id="search"
             />
           </form>
-          <div class="dropdown">
-            <a
-              class="btn btn-secondary dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              >Filter
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="/listings">All listings</a>
-              </li>
-              <li><a class="dropdown-item" href="/listings/art">Art</a></li>
-              <li><a class="dropdown-item" href="/listings/books">Books</a></li>
-              <li>
-                <a class="dropdown-item" href="/listings/furniture"
-                  >Furniture</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" href="/listings/jewellery"
-                  >Jewellery</a
-                >
-              </li>
-            </ul>
-          </div>
-
+        </div>
           <div class="card mt-5 p-2">
             <div class="card-header">OUR CONTACTS</div>
             <ul class="list-group list-group-flush">
@@ -75,22 +48,22 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-9 mt-5 p-2">
+        <div class="col-lg-9 mt-5 p-2 ">
           <div class="row justify-content-around">
-            <% for (let listing of listings) { %>
+            <% for (let filteredListing of filteredListings) { %>
             <div class="card mb-5 shadow" style="width: 20rem">
-              <img
-                src="<%= listing.media %>"
-                class="card-img-top mt-2"
-                alt="image of the listing"
+                <img
+                  src="<%= filteredListing.media %>"
+                  class="card-img-top mt-2"
+                  alt="image of the listing"
               />
               <div class="card-body">
-                <h5 class="card-title"><%= listing.title %></h5>
+                <h5 class="card-title"><%= filteredListing.title %></h5>
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">
-                    CURRENT BID <%= listing._count.bids %>
+                    CURRENT BID <%= filteredListing._count.bids %>
                   </li>
-                  <li class="list-group-item">ENDS: <%= listing.endsAt %></li>
+                  <li class="list-group-item">ENDS: <%= filteredListing.endsAt %></li>
                 </ul>
               </div>
             </div>

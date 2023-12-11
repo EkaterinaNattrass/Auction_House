@@ -1,10 +1,8 @@
 const createListing = async function(listingData, token) {
 
     const url = 'https://api.noroff.dev/api/v1/auction/listings';
-    const imgUrl = 'https://unsplash.com/photos/gold-and-silver-steel-wall-decor-tszceVXBPos';
-    
-
-    const bearerToken = 'Bearer ' + token;
+    const media = [] ;
+    const bearerToken= 'Bearer ' + token;
 
     const options = {
         method: 'POST',
@@ -18,8 +16,9 @@ const createListing = async function(listingData, token) {
     try {
         const res = await fetch(url, options);
         const listingData = await res.json();
-        statusCode = res.status;
+        media = listingData.media;
         console.log(listingData);
+        statusCode = res.status;
         return statusCode === 200;
     }
     catch (err) {

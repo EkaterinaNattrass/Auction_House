@@ -6,18 +6,18 @@ const session = require('express-session');
 const flash = require('connect-flash');
 const methodOverride = require('method-override');
 const sassMiddleware = require('node-sass-middleware');
+const passport = require('passport');
+const BearerStrategy = require ('passport-http-bearer');
 
-const loginUser = require('./modules/login');
-const registerUser = require('./modules/register');
 const getListings = require('./modules/getListings');
-const getOneListing = require('./modules/getOneListing');
 const getProfile = require('./modules/getProfile');
 const getProfileListings = require('./modules/getProfileListings');
-const createListing = require('./modules/createListing');
-const updateListing = require('./modules/updateListing');
-const deleteListing = require('./modules/delete');
-const AppError = require('./modules/AppError');
-const catchAsync = require('./modules/catchAsync');
+const updateAvatar = require('./modules/updateAvatar');
+
+const listings = require('./routes/listings');
+const loginForm = require('./routes/loginForm');
+const registerForm = require('./routes/registerForm');
+const logout = require('./routes/logout');
 
 const fetch = (...args) => import ('node-fetch').then(({default : fetch}) => fetch(...args));
 
@@ -41,116 +41,67 @@ app.use(session({
     secret: 'bid-beautifully',
     resave: true,
     saveUninitialized: true,
-    cookie: {
-        maxAge: 3600000,
-    }
+    /* cookie: {
+        maxAge: 7200000,
+    } */
 }));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new BearerStrategy(
+    function(token, done) {
+      User.findOne({ token: token }, function (err, user) {
+        if (err) { return done(err); }
+        if (!user) { return done(null, false); }
+        return done(null, user, { scope: 'all' });
+      });
+    }
+  ));
 
 app.use(flash());
 
 app.use(methodOverride('_method'));
 
+app.use('/login-form', loginForm);
+app.use('/register-form', registerForm);
+app.use('/listings', listings);
+app.use('/logout', logout);
+
 app.get('/', (req, res) => {
     res.render('index', {
-        failedLoginMessage: req.flash('LoginError')
+        failedLoginMessage: req.flash('loginError')
     })
 });
 
-app.get('/login-form', catchAsync(async (req, res) => {
-    res.redirect('profile');
-}));
-
-app.post('/login-form', catchAsync(async(req, res) => {
-
-    const loggedInUser = await loginUser(req.body);
-
-    if (loggedInUser.success) {
-        req.session.token = loggedInUser.token;
-        req.session.userName = loggedInUser.userName;
-        res.redirect('profile');
-    } else {
-        // req.flash ('loginError', loggedInUser.error + '...Something went wrong. Please, try again');
-        res.redirect('/');
-    }
-}));
-
-app.get('/register', (req, res) => {
-    res.render('register', {
-        failedRegisterMessage: req.flash('registerError')
-    })
-});
-
-app.get('/register-form', catchAsync(async(req, res) => {
-    res.redirect('/register')
-}));
-
-app.post('/register-form', catchAsync(async(req, res) => {
-
-    const registeredUser = await registerUser(req.body);
-    res.redirect('profile');
-
-    if(!registeredUser.success) {
-        req.flash('registerError', registeredUser.error + '...Something went wrong. Please, try again');
-        return;
-    }
-}));
-
-app.get('/listings', catchAsync(async (req, res) => {
+app.get('/listings-loggedin', async (req, res) => {
     const listings = await getListings();
-    const profile = await getProfile(req.session.userName, req.session.token)
-    res.render('listings', { listings, profile })
-}));
+    const profile = await getProfile(req.session.userName, req.session.token);
+    userName = req.session.userName;
+    res.render('listings-loggedin', { listings, profile })
+});
 
-app.get('/listings/:id', catchAsync(async(req,res) => {
-    id = req.params.id;
-    const listing = await getOneListing(id);
-    res.render('details', { listing });
-}));
-
-app.get('/profile', catchAsync(async (req, res) => {
+app.get('/profile', async (req, res) => {
     const profile = await getProfile(req.session.userName, req.session.token);
     userName = req.session.userName;
     const listings = profile.listings;
     res.render('profile', { profile, listings })
-}));
+});
 
-app.post('/create-listing', catchAsync(async(req, res, next) => {
-    const listingData = req.body;
-    success = createListing(listingData, req.session.token);
-    res.redirect('profile');
-}));
-
-app.get('/listings/:id/update', async (req, res) => {
-    id = req.params.id;
-    listing = await getOneListing( id, req.session.token);
-    res.render('update', { id });
-})
-
-app.put('/listings/:id', async (req, res) => {
-    id = req.params.id;
-    updatedListing = req.body;
-    success = await updateListing (updatedListing, id, req.session.token);
-    res.redirect('/profile');
-})
-
-app.delete('/listings/:id', async (req,res) => {
-    id = req.params.id;
-    deletedListing = await deleteListing( id, req.session.token);
-    res.redirect('/profile');
+app.put('/profile/update', async (req, res) => {
+    avatar = req.body;
+    userName = req.session.userName;
+    const updatedAvatar = await updateAvatar(avatar, userName, req.session.token);
+    const profile = await getProfile(req.session.userName, req.session.token);
+    const listings = profile.listings;
+    console.log(updatedAvatar);
+    res.render('profile', { profile, avatar, listings })
 })
 
 app.get('/about', (req, res) => {
     res.render('about')
 })
 
-/* app.all('*', (req, res, next) => {
-    next(new AppError('Page not found', 404))
-})
 
-app.use((err, req, res, next) => {
-    const { statusCode = 500 } = err;
-    if (!err.message) err.message = 'Oh no, Something went wrong!'
-    res.status(statusCode).render('error');
-}) */
+
 
 app.listen(3000, () => {console.log('listening on port')});
