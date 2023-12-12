@@ -20,5 +20,8 @@ router.put('/update', async (req, res) => {
     const updatedAvatar = await updateAvatar(avatar, userName, req.session.token);
     const profile = await getProfile(req.session.userName, req.session.token);
     const listings = profile.listings;
+    console.log(updatedAvatar);
     res.render('profile', { profile, avatar, listings })
 });
+
+module.exports = router;

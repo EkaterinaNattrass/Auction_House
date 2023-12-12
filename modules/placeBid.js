@@ -1,13 +1,6 @@
-const placeBid = async function(bid, id, token) {
+const placeBid = async function(amount, id, token) {
 
     const url = 'https://api.noroff.dev/api/v1/auction/listings/' + id + '/bids';
-    
-    returnObj = {
-        'success': false,
-        'amount': "",
-        'error': ""
-    }
-
     const bearerToken = 'Bearer ' + token;
 
     const options = {
@@ -16,13 +9,13 @@ const placeBid = async function(bid, id, token) {
             'Content-Type': 'application/json',
             Authorization: bearerToken
         },
-        body: JSON.stringify({"amount": parseInt(bid)})
+        body: JSON.stringify(amount)
     };
 
     try {
         const res = await fetch(url, options);
-        const bid = await res.json();
-        console.log(bid);
+        const amount = await res.json();
+        console.log(amount);
         statusCode = res.status;
         
         return statusCode === 200;

@@ -11,13 +11,12 @@ const BearerStrategy = require ('passport-http-bearer');
 
 const getListings = require('./modules/getListings');
 const getProfile = require('./modules/getProfile');
-const getProfileListings = require('./modules/getProfileListings');
-const updateAvatar = require('./modules/updateAvatar');
 
 const listings = require('./routes/listings');
 const loginForm = require('./routes/loginForm');
 const registerForm = require('./routes/registerForm');
 const logout = require('./routes/logout');
+const profile = require('./routes/profile');
 
 const fetch = (...args) => import ('node-fetch').then(({default : fetch}) => fetch(...args));
 
@@ -66,6 +65,7 @@ app.use('/login-form', loginForm);
 app.use('/register-form', registerForm);
 app.use('/listings', listings);
 app.use('/logout', logout);
+app.use('/profile', profile);
 
 app.get('/', (req, res) => {
     res.render('index', {
@@ -80,28 +80,24 @@ app.get('/listings-loggedin', async (req, res) => {
     res.render('listings-loggedin', { listings, profile })
 });
 
-app.get('/profile', async (req, res) => {
-    const profile = await getProfile(req.session.userName, req.session.token);
-    userName = req.session.userName;
-    const listings = profile.listings;
-    res.render('profile', { profile, listings })
-});
+app.get('/listings-loggedin/search', async (req, res) => {
+    const searchWord = req.query.search;
 
-app.put('/profile/update', async (req, res) => {
-    avatar = req.body;
-    userName = req.session.userName;
-    const updatedAvatar = await updateAvatar(avatar, userName, req.session.token);
+    if (!searchWord) { return res.send('Please, fill in the search form')};
+
+    const listings = await getListings();
+    const filteredListings = listings.filter((listing) => {
+        const title = listing.title ? listing.title.toLowerCase() : '';
+        const description =  listing.description ? listing.description.toLowerCase() : '';
+        return  title.includes(searchWord.toLowerCase())  ||  description.includes(searchWord.toLowerCase())
+    });
     const profile = await getProfile(req.session.userName, req.session.token);
-    const listings = profile.listings;
-    console.log(updatedAvatar);
-    res.render('profile', { profile, avatar, listings })
+    userName = req.session.userName;
+    res.render('search-loggedin', { filteredListings, profile});
 })
 
 app.get('/about', (req, res) => {
     res.render('about')
 })
-
-
-
 
 app.listen(3000, () => {console.log('listening on port')});

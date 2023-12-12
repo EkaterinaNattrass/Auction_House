@@ -21,13 +21,13 @@
               </li>
             </ul>
             <div class="my-3">
+              <div class="card-header mt-3">AVATAR</div>
               <form
                 action="/profile/update?_method=PUT"
                 method="POST"
                 class="d-grid gap-2 mb-3"
               >
-                <label for="userAvatar" class="form-label">Avatar</label>
-                <div class="input-group">
+                <div class="input-group mt-3">
                   <span class="input-group-text" id="basic-addon3"
                     >add a link</span
                   >
@@ -48,7 +48,8 @@
                 </div>
               </form>
             </div>
-
+          </div>
+          <div class="my-5 text-center card p-2">
             <div class="g-3 mb-3 mt-5">
               <div class="card-header">CREATE A NEW LISTING</div>
               <form
@@ -89,7 +90,7 @@
                     type="datetime-local"
                     id="endsAt"
                     name="endsAt"
-                    value="2023-12-01T00:00:00"
+                    value="2023-12-17T00:00:00"
                     required
                   />
                   <div class="valid-feedback">Looks good!</div>
@@ -131,10 +132,10 @@
         </div>
         <div class="col-lg-6 col-sm-10">
           <div class="my-5 card p-2">
-            <div class="card-header text-center">YOUR LISTINGS</div>
+            <div class="card-header text-center mt-3">YOUR LISTINGS</div>
             <% for (let listing of listings) { %>
-            <div class="card mb-3 p-2" style="max-width: 600px">
-              <div id="carousel" class="carousel slide">
+            <div class="card mt-5 mb-3 p-2 shadow">
+              <div id="<%= listing.id %>" class="carousel slide">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <img
@@ -161,7 +162,7 @@
                 <button
                   class="carousel-control-prev"
                   type="button"
-                  data-bs-target="#carousel"
+                  data-bs-target="#<%= listing.id %>"
                   data-bs-slide="prev"
                 >
                   <span
@@ -173,7 +174,7 @@
                 <button
                   class="carousel-control-next"
                   type="button"
-                  data-bs-target="#carousel"
+                  data-bs-target="#<%= listing.id %>"
                   data-bs-slide="next"
                 >
                   <span
@@ -183,37 +184,32 @@
                   <span class="visually-hidden">Next</span>
                 </button>
               </div>
-              <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title"><%= listing.title %></h5>
-                  <p class="card-text"><%= listing.description %></p>
-                </div>
-                <div>
-                  <form
-                    action="/listings/<%= listing.id %>/update"
-                    method="GET"
-                  >
-                    <input
-                      type="submit"
-                      class="btn btn-primary mt-4"
-                      value="update"
-                    />
-                  </form>
-                  <form
-                    action="/listings/<%= listing.id %>/?_method=DELETE"
-                    method="POST"
-                  >
-                    <input
-                      type="submit"
-                      class="btn btn-outline-primary mt-4"
-                      value="Delete"
-                    />
-                  </form>
-                </div>
+              <div class="card-body">
+                <h5 class="card-title"><%= listing.title %></h5>
+                <p class="card-text"><%= listing.description %></p>
+              </div>
+              <div class="ms-3 mb-3">
+                <form action="/listings/<%= listing.id %>/update" method="GET">
+                  <input
+                    type="submit"
+                    class="btn btn-primary mt-4"
+                    value="UPDATE"
+                  />
+                </form>
+                <form
+                  action="/listings/<%= listing.id %>/?_method=DELETE"
+                  method="POST"
+                >
+                  <input
+                    type="submit"
+                    class="btn btn-outline-primary mt-4"
+                    value="DELETE"
+                  />
+                </form>
               </div>
             </div>
-            <% } %>
-          </div>
+          <% } %>
+        </div>
         </div>
       </div>
     </div>

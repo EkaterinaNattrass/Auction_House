@@ -49,34 +49,17 @@ router.delete('/:id', async (req,res) => {
 router.post('/new', async(req, res) => {
     const listingData = req.body;
     success = createListing(listingData, req.session.token);
+    media = listingData.media;
     res.redirect('/profile');
 });
 
 router.post('/bid', async (req, res) => {
-    id = req.params.id;
-    bid = req.body;
-    success = placeBid(bid, id, req.session.token);
+    listing = await getOneListing( id, req.session.token);
+    id = listing.id; 
+    amount = req.body;
+    success = placeBid(amount, id, req.session.token);
     res.redirect('/profile')
 });
-
-router.get('/search', async (req, res) => {
-    const searchWord = req.query.search;
-
-    if (!searchWord) { return res.send('Please, fill in the search form')};
-
-    const listings = await getListings();
-    const filteredListings = listings.filter((listing) => {
-        const title = listing.title ? listing.title.toLowerCase() : '';
-        // const body =  listing.body ? listing.body.toLowerCase() : '';
-         return  title.includes(searchWord.toLowerCase())  //||  body.includes(searchTerm.toLowerCase())
-    });
-    res.render('search');
-})
-
-router.get('/art', async (req, res) => {
-    const filteredListings = await filterListings('art');
-    res.render('english', { filteredListings });
-})
 
 module.exports = router;
 

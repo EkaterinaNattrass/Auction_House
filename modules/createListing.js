@@ -1,7 +1,6 @@
 const createListing = async function(listingData, token) {
 
     const url = 'https://api.noroff.dev/api/v1/auction/listings';
-    const media = [] ;
     const bearerToken= 'Bearer ' + token;
 
     const options = {
@@ -16,7 +15,6 @@ const createListing = async function(listingData, token) {
     try {
         const res = await fetch(url, options);
         const listingData = await res.json();
-        media = listingData.media;
         console.log(listingData);
         statusCode = res.status;
         return statusCode === 200;

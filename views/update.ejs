@@ -5,7 +5,6 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-4 mt-5">
-          <div class="card-header">CREATE A NEW LISTING</div>
           <form
             action="/listings/<%= listing.id %>?_method=PUT"
             method="POST"
@@ -22,7 +21,7 @@
                 rows="1"
                 required
               >
-<%= listing.title %></textarea
+              <%= listing.title %></textarea
               >
               <div class="valid-feedback">Looks good!</div>
             </div>
@@ -36,17 +35,17 @@
                 rows="3"
                 required
               >
-<%= listing.description %></textarea
+              <%= listing.description %></textarea
               >
               <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="my-3">
-              <label for="endsAt" class="form-label p-2">Deadline</label>
-              <input
-                type="datetime-local"
+              <label for="endsAt" class="form-label">Deadline</label>
+              <input class="form-control"
+                type="text"
                 id="endsAt"
                 name="endsAt"
-                value="2023-12-01T00:00:00"
+                value="<%= listing.endsAt %>"
                 required
               />
               <div class="valid-feedback">Looks good!</div>
@@ -55,30 +54,27 @@
               <label for="media" class="form-label">Media</label>
               <input
                 type="text"
-                class="form-control"
+                class="form-control mb-2"
                 id="media1"
                 name="media"
-                aria-label="images of a new listing"
-                rows="1"
+                aria-label="image of a new listing"
                 value="<%= listing.media[0] %>"
               />
               <input
                 type="text"
-                class="form-control"
+                class="form-control mb-2"
                 id="media2"
                 name="media"
-                aria-label="images of a new listing"
-                rows="1"
+                aria-label="image of a new listing"
                 value="<%= listing.media[1] %>"
               />
               <input
                 type="text"
-                class="form-control"
+                class="form-control mb-2"
                 id="media3"
                 name="media"
-                aria-label="images of a new listing"
-                rows="1"
-                vallue="<%= listing.media[2] %>"
+                aria-label="image of a new listing"
+                value="<%= listing.media[2] %>"
               />
               <div class="valid-feedback">Looks good!</div>
             </div>

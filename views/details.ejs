@@ -5,14 +5,21 @@
     <div class="container p-3">
       <div class="row justify-content-around">
           <div class="col-lg-4 mt-5">
-            <div class="card p-2">
-              <div class="card-header">
-                <% if (profile.media) { %>
-                <img src="<%= profile.media %>" class="rounded-circle p-2" style="width: 50px; height: 50px;"  alt="avatar"/>
-              <% } %>
-                <p><%= profile.name.toUpperCase() %></p> 
-              </div>
-              <p class="p-2">You currently have <%= profile.credits %> credits </p>
+            <div class="card mt-5 p-2">
+              <h5 class="card-header">
+                <% if (profile.avatar) { %>
+                  <img
+                  src="<%= profile.avatar %>"
+                  class="rounded-circle p-2"
+                  style="width: 70px; height: 70px"
+                  alt="avatar"
+                /> 
+               <% } %>
+                <a href="/profile"><%= profile.name.toUpperCase() %></a> 
+                </h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">You have <%= profile.credits %> credits</li>
+              </ul>
             </div>
           </div>
           <div class="col-lg-6 mt-5">
@@ -81,12 +88,12 @@
               </div>
               <form class="row g-3" method="POST" action="/listings/bid" >
                 <div class="col-auto">
-                  <label for="bid" class="visually-hidden">YOUR BID</label>
+                  <label for="amount" class="visually-hidden">YOUR BID</label>
                   <input
                     type="number"
                     class="form-control"
-                    id="bid"
-                    name="bid"
+                    id="amount"
+                    name="amount"
                     placeholder="YOUR BID"
                   />
                 </div>
