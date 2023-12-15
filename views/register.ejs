@@ -20,7 +20,7 @@
             <% if (failedRegisterMessage.length > 0) { %>
             <div class="error-message">
               <% failedRegisterMessage.forEach(message => { %>
-              <p><%= message %></p>
+              <p><i class="fa-solid fa-triangle-exclamation"></i> <%= message %></p>
               <% }); %>
             </div>
             <% } %>

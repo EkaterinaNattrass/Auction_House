@@ -10,9 +10,8 @@ const getOneListing = async function (id) {
         try {
             const res = await fetch(url, options);
             const data = await res.json(); 
-            console.log(data)
             return data;
-        } catch {
+        } catch(err) {
             console.log('error:' + err + err.status);
         }
 }

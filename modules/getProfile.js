@@ -14,7 +14,6 @@ const getProfile = async function (userName, token) {
     try {
         const res = await fetch(url, options);
         const profile = await res.json();
-        console.log(profile);
         return profile;   
     }
     catch (err) {

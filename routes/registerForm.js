@@ -1,11 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const session = require('express-session');
-const flash = require('connect-flash');
-const methodOverride = require('method-override');
-const sassMiddleware = require('node-sass-middleware');
 const registerUser = require('../modules/register');
-const createListing = require('../modules/createListing');
 
 router.get('/', async (req, res) => {
     res.render ('register', {
@@ -22,6 +17,7 @@ router.post('/', async(req, res) => {
         return;
     }
     else {
+        req.flash('success', 'You are successfully registered');
         res.redirect('/')
     }
 });

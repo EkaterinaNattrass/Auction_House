@@ -4,6 +4,7 @@ const loginUser = require('../modules/login');
 
 router.get('/', async (req, res) => {
     res.redirect('/');
+    
 });
 
 router.post('/', async(req, res) => {

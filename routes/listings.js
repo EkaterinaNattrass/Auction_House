@@ -19,30 +19,29 @@ router.get('/:id', async(req,res) => {
     const listing = await getOneListing(id);
     listingBids = listing.bids;
     latestBid = listingBids[listingBids.length - 1];
-    console.log(latestBid);
     const profile = await getProfile(req.session.userName, req.session.token);
     userName = req.session.userName;
+    statusCode = res.status;
     res.render('details', { listing, profile });
 });
 
 router.get('/:id/update', async (req, res) => {
     id = req.params.id;
     listing = await getOneListing( id, req.session.token);
-    res.render('update', { id });
+    res.render('update', { id, failedListingUpdateMessage: req.flash('errorMessage')  });
 })
 
 router.put('/:id', async (req, res) => {
     id = req.params.id;
     updatedListing = req.body;
     success = await updateListing (updatedListing, id, req.session.token);
-    if (success) {
-        res.redirect('/profile');
-    } else {
-        req.flash('updateError', update.error + '...Please, try again');
-        res.redirect('/:id');
+    statusCode = res.status;
+    if(statusCode !== 200) {
+        req.flash('failedListingUpdateMessage', ' Something went wrong, please try again');
+        res.redirect('/:id/update'); 
     }
-    
-})
+    else {res.redirect('/:id')}
+});
 
 router.delete('/:id', async (req,res) => {
     id = req.params.id;

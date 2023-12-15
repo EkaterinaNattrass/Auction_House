@@ -57,6 +57,7 @@ passport.use(new BearerStrategy(
 
 app.use(flash());
 
+
 app.use(methodOverride('_method'));
 
 app.use('/login-form', loginForm);
@@ -68,7 +69,8 @@ app.use('/listings-loggedin', listingsLoggedin);
 
 app.get('/', (req, res) => {
     res.render('index', {
-        failedLoginMessage: req.flash('loginError')
+        failedLoginMessage: req.flash('loginError'),
+        successMessage: req.flash('success')
     })
 });
 

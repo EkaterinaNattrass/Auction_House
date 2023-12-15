@@ -83,6 +83,14 @@
             </div>
           </form>
         </div>
+        <% if (failedListingUpdateMessage.length > 0) { %>
+          <div class="error-message text-center">
+            <% failedListingUpdateMessage.forEach(message => { %>
+            <p><i class="fa-solid fa-triangle-exclamation"></i> <%= message %></p>
+            <% }); %>
+          </div>
+          <% } %>
+      </div>
       </div>
     </div>
   </main>

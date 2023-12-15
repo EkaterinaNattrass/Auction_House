@@ -21,9 +21,9 @@ const updateAvatar = async function(avatar, userName, token) {
         return statusCode === 200;
     }
     catch (err) {
-        console.log('error:' + err + err.status);
-        return false;
+        return false
     }
-}
+    
+};
 
 module.exports = updateAvatar;

@@ -49,6 +49,13 @@
               </form>
             </div>
           </div>
+          <% if (failedUpdateMessage.length > 0) { %>
+            <div class="error-message">
+              <% failedUpdateMessage.forEach(message => { %>
+              <p><i class="fa-solid fa-triangle-exclamation"></i> <%= message %></p>
+              <% }); %>
+            </div>
+            <% } %>
           <div class="my-5 text-center card p-2">
             <div class="g-3 mb-3 mt-3">
               <div class="card-header">CREATE A NEW LISTING</div>
@@ -110,6 +117,7 @@
                     name="media"
                     aria-label="images of a new listing"
                     rows="1"
+                    required
                   />
                   <input
                     type="text"
@@ -118,6 +126,7 @@
                     name="media"
                     aria-label="images of a new listing"
                     rows="1"
+                    required
                   />
                   <input
                     type="text"
@@ -126,6 +135,7 @@
                     name="media"
                     aria-label="images of a new listing"
                     rows="1"
+                    required
                   />
                   <div class="valid-feedback">Looks good!</div>
                 </div>
@@ -136,6 +146,7 @@
             </div>
           </div>
         </div>
+
         <div class="col-lg-5 col-sm-10">
           <div class="card p-2 my-5">
           <div class="card-header text-center my-3">YOUR LISTINGS</div>

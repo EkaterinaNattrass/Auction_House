@@ -17,7 +17,7 @@ const updateListing = async function(updatedListing, id, token) {
         const res = await fetch(url, options);
         const updatedListing = await res.json();
         statusCode = res.status;
-        console.log(updatedListing);
+        console.log(statusCode);
         return statusCode === 200;
     }
     catch (err) {
