@@ -1,6 +1,6 @@
 const getOneListing = async function (id) {
 
-    url = 'https://api.noroff.dev/api/v1/auction/listings/' + id;
+    url = 'https://api.noroff.dev/api/v1/auction/listings/' + id + '?_bids=true';
     const options = {
         method: 'GET',
         headers: {

@@ -17,6 +17,9 @@ router.get('/', async (req, res) => {
 router.get('/:id', async(req,res) => {
     id = req.params.id;
     const listing = await getOneListing(id);
+    listingBids = listing.bids;
+    latestBid = listingBids[listingBids.length - 1];
+    console.log(latestBid);
     const profile = await getProfile(req.session.userName, req.session.token);
     userName = req.session.userName;
     res.render('details', { listing, profile });
@@ -32,7 +35,13 @@ router.put('/:id', async (req, res) => {
     id = req.params.id;
     updatedListing = req.body;
     success = await updateListing (updatedListing, id, req.session.token);
-    res.redirect('/profile');
+    if (success) {
+        res.redirect('/profile');
+    } else {
+        req.flash('updateError', update.error + '...Please, try again');
+        res.redirect('/:id');
+    }
+    
 })
 
 router.delete('/:id', async (req,res) => {
