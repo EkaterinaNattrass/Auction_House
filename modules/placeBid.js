@@ -9,7 +9,7 @@ const placeBid = async function(amount, id, token) {
             'Content-Type': 'application/json',
             Authorization: bearerToken
         },
-        body: JSON.stringify(amount)
+        body: JSON.stringify({"amount": amount})
     };
 
     try {

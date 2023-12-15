@@ -9,14 +9,12 @@ const sassMiddleware = require('node-sass-middleware');
 const passport = require('passport');
 const BearerStrategy = require ('passport-http-bearer');
 
-const getListings = require('./modules/getListings');
-const getProfile = require('./modules/getProfile');
-
 const listings = require('./routes/listings');
 const loginForm = require('./routes/loginForm');
 const registerForm = require('./routes/registerForm');
 const logout = require('./routes/logout');
 const profile = require('./routes/profile');
+const listingsLoggedin = require('./routes/listings-loggedin');
 
 const fetch = (...args) => import ('node-fetch').then(({default : fetch}) => fetch(...args));
 
@@ -40,9 +38,9 @@ app.use(session({
     secret: 'bid-beautifully',
     resave: true,
     saveUninitialized: true,
-    /* cookie: {
+    cookie: {
         maxAge: 7200000,
-    } */
+    }
 }));
 
 app.use(passport.initialize());
@@ -66,35 +64,13 @@ app.use('/register-form', registerForm);
 app.use('/listings', listings);
 app.use('/logout', logout);
 app.use('/profile', profile);
+app.use('/listings-loggedin', listingsLoggedin);
 
 app.get('/', (req, res) => {
     res.render('index', {
         failedLoginMessage: req.flash('loginError')
     })
 });
-
-app.get('/listings-loggedin', async (req, res) => {
-    const listings = await getListings();
-    const profile = await getProfile(req.session.userName, req.session.token);
-    userName = req.session.userName;
-    res.render('listings-loggedin', { listings, profile })
-});
-
-app.get('/listings-loggedin/search', async (req, res) => {
-    const searchWord = req.query.search;
-
-    if (!searchWord) { return res.send('Please, fill in the search form')};
-
-    const listings = await getListings();
-    const filteredListings = listings.filter((listing) => {
-        const title = listing.title ? listing.title.toLowerCase() : '';
-        const description =  listing.description ? listing.description.toLowerCase() : '';
-        return  title.includes(searchWord.toLowerCase())  ||  description.includes(searchWord.toLowerCase())
-    });
-    const profile = await getProfile(req.session.userName, req.session.token);
-    userName = req.session.userName;
-    res.render('search-loggedin', { filteredListings, profile});
-})
 
 app.get('/about', (req, res) => {
     res.render('about')

@@ -15,6 +15,19 @@
               id="search"
             />
           </form>
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Filter
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/listings-loggedin">All the listings</a></li>
+              <li><a class="dropdown-item" href="/listings-loggedin/art">Art</a></li>
+              <li><a class="dropdown-item" href="/listings-loggedin/books">Books</a></li>
+              <li><a class="dropdown-item" href="/listings-loggedin/furniture">Furniture</a></li>
+              <li><a class="dropdown-item" href="/listings-loggedin/jewellery">Jewellery</a></li>
+              
+            </ul>
+          </div>
           <div class="card mt-5 p-2">
             <h5 class="card-header">
               <% if (profile.avatar) { %>

@@ -16,8 +16,7 @@ const createListing = async function(listingData, token) {
         const res = await fetch(url, options);
         const listingData = await res.json();
         console.log(listingData);
-        statusCode = res.status;
-        return statusCode === 200;
+        return listingData;
     }
     catch (err) {
         console.log('error:' + err + err.status);

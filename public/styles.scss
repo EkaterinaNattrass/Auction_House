@@ -73,18 +73,12 @@ span {
   background-color: $logo-text;
 }
 
-.top-btn {
-  color: #F2F2F2;
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  right: 30px;
-  cursor: pointer;
-}
-
 .error-message {
   color: #F2F2F2;
 }
 
+.black {
+  color: black
+}
 
 @import "../node_modules/bootstrap/scss/bootstrap";

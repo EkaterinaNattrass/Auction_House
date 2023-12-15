@@ -1,9 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const session = require('express-session');
-const flash = require('connect-flash');
-const methodOverride = require('method-override');
-const sassMiddleware = require('node-sass-middleware');
 const loginUser = require('../modules/login');
 
 router.get('/', async (req, res) => {

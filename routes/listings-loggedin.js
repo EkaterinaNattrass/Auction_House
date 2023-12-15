@@ -1,21 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const session = require('express-session');
-const flash = require('connect-flash');
-const methodOverride = require('method-override');
-const sassMiddleware = require('node-sass-middleware');
 
 const getListings = require('../modules/getListings');
+const getProfile = require('../modules/getProfile');
 const filterListings = require('../modules/filterListings');
+const getOneListing = require('../modules/getOneListing');
+const placeBid = require('../modules/placeBid');
 
-router.get('/listings-loggedin', async (req, res) => {
+router.get('/', async (req, res) => {
     const listings = await getListings();
     const profile = await getProfile(req.session.userName, req.session.token);
     userName = req.session.userName;
     res.render('listings-loggedin', { listings, profile })
 });
 
-router.get('/listings-loggedin/search', async (req, res) => {
+router.get('/search', async (req, res) => {
     const searchWord = req.query.search;
 
     if (!searchWord) { return res.send('Please, fill in the search form')};
@@ -30,3 +29,38 @@ router.get('/listings-loggedin/search', async (req, res) => {
     userName = req.session.userName;
     res.render('search-loggedin', { filteredListings, profile});
 })
+
+router.get('/art', async (req, res) => {
+    const listings = await filterListings(req.session.token, 'art')
+    const profile = await getProfile(req.session.userName, req.session.token);
+    res.render('listings-loggedin', { listings, profile });
+});
+
+router.get('/books', async (req, res) => {
+    const listings = await filterListings(req.session.token, 'books')
+    const profile = await getProfile(req.session.userName, req.session.token);
+    res.render('listings-loggedin', { listings, profile });
+});
+
+router.get('/furniture', async (req, res) => {
+    const listings = await filterListings(req.session.token, 'furniture')
+    const profile = await getProfile(req.session.userName, req.session.token);
+    res.render('listings-loggedin', { listings, profile, });
+});
+
+router.get('/jewellery', async (req, res) => {
+    const listings = await filterListings(req.session.token, 'jewellery')
+    const profile = await getProfile(req.session.userName, req.session.token);
+    res.render('listings-loggedin', { listings, profile, });
+});
+
+router.post('/bid', async (req, res) => {
+    listing = await getOneListing( id, req.session.token);
+    id = listing.id; 
+    amount = req.body.amount;
+    const bid = parseInt(amount);
+    success = placeBid(bid, id, req.session.token);
+    res.redirect('/listings-loggedin')
+});
+
+module.exports = router;

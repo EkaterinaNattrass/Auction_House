@@ -1,9 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const session = require('express-session');
-const flash = require('connect-flash');
-const methodOverride = require('method-override');
-const sassMiddleware = require('node-sass-middleware');
 
 const getListings = require('../modules/getListings');
 const getOneListing = require('../modules/getOneListing');
@@ -12,7 +8,6 @@ const updateListing = require('../modules/updateListing');
 const deleteListing = require('../modules/delete');
 const getProfile = require('../modules/getProfile');
 const placeBid = require('../modules/placeBid');
-const filterListings = require('../modules/filterListings');
 
 router.get('/', async (req, res) => {
     const listings = await getListings();
@@ -48,18 +43,10 @@ router.delete('/:id', async (req,res) => {
 
 router.post('/new', async(req, res) => {
     const listingData = req.body;
-    success = createListing(listingData, req.session.token);
-    media = listingData.media;
+    success = await createListing(listingData, req.session.token);
     res.redirect('/profile');
 });
 
-router.post('/bid', async (req, res) => {
-    listing = await getOneListing( id, req.session.token);
-    id = listing.id; 
-    amount = req.body;
-    success = placeBid(amount, id, req.session.token);
-    res.redirect('/profile')
-});
 
 module.exports = router;
 
