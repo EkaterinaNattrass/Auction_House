@@ -18,7 +18,7 @@
           </div>
           <div>
             <% if (failedRegisterMessage.length > 0) { %>
-            <div class="error-message">
+            <div class="alert alert-warning d-flex align-items-center justify-content-around">
               <% failedRegisterMessage.forEach(message => { %>
               <p><i class="fa-solid fa-triangle-exclamation"></i> <%= message %></p>
               <% }); %>

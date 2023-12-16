@@ -16,10 +16,10 @@
         </div>
         <div class="col-lg-4 col-sm-8 my-5">
           <% if ( successMessage.length > 0) { %>
-            <div class="alert alert-warning d-flex align-items-center justify-content-around">
+            <div class="alert alert-light d-flex align-items-center justify-content-around">
                 <% successMessage.forEach ( message => { %>
                     <p>
-                      <i class="fa-solid fa-circle-check"></i> <%= successMessage %></div>
+                      <i class="fa-solid fa-circle-check"></i> <%= successMessage %>
                     </p>
                     <% }); %>
             </div>

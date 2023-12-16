@@ -55,7 +55,11 @@ router.delete('/:id', async (req,res) => {
 router.post('/new', async(req, res) => {
     const listingData = req.body;
     success = await createListing(listingData, req.session.token);
-    res.redirect('/profile');
+    if (!success) {
+        res.redirect('/error')
+    } else {
+        res.redirect('/profile');
+    }
 });
 
 
