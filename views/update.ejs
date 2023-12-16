@@ -8,8 +8,6 @@
           <form
             action="/listings/<%= listing.id %>?_method=PUT"
             method="POST"
-            novalidate
-            class="validated-form"
           >
             <div class="my-3">
               <label for="title" class="form-label">Title</label>
@@ -23,7 +21,6 @@
               >
               <%= listing.title %></textarea
               >
-              <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="my-3">
               <label for="description" class="form-label">Description</label>
@@ -37,18 +34,6 @@
               >
               <%= listing.description %></textarea
               >
-              <div class="valid-feedback">Looks good!</div>
-            </div>
-            <div class="my-3">
-              <label for="endsAt" class="form-label">Deadline</label>
-              <input class="form-control"
-                type="text"
-                id="endsAt"
-                name="endsAt"
-                value="<%= listing.endsAt %>"
-                required
-              />
-              <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="my-3">
               <label for="media" class="form-label">Media</label>
@@ -76,21 +61,20 @@
                 aria-label="image of a new listing"
                 value="<%= listing.media[2] %>"
               />
-              <div class="valid-feedback">Looks good!</div>
             </div>
             <div class="d-grid gap-2">
               <input type="submit" class="btn btn-primary" value="UPDATE" />
             </div>
           </form>
         </div>
-        <% if (failedListingUpdateMessage.length > 0) { %>
-          <div class="error-message text-center">
-            <% failedListingUpdateMessage.forEach(message => { %>
+      </div>
+      <% if (failedMessage.length > 0) { %>
+          <div class="alert alert-warning d-flex align-items-center justify-content-around mt-5">
+            <% failedMessage.forEach(message => { %>
             <p><i class="fa-solid fa-triangle-exclamation"></i> <%= message %></p>
             <% }); %>
           </div>
           <% } %>
-      </div>
       </div>
     </div>
   </main>

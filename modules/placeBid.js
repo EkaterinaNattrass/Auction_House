@@ -17,11 +17,11 @@ const placeBid = async function(amount, id, token) {
         const amount = await res.json();
         console.log(amount);
         statusCode = res.status;
-        
+        console.log(statusCode);
         return statusCode === 200;
     }
     catch (err) {
-        console.log('error:' + err + err.status);
+        console.log(err)
         return false;
     }
 };

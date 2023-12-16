@@ -19,28 +19,31 @@ router.get('/:id', async(req,res) => {
     const listing = await getOneListing(id);
     listingBids = listing.bids;
     latestBid = listingBids[listingBids.length - 1];
-    const profile = await getProfile(req.session.userName, req.session.token);
-    userName = req.session.userName;
-    statusCode = res.status;
-    res.render('details', { listing, profile });
+    if (latestBid === undefined) {
+    res.redirect('/error');
+    } else {
+       const profile = await getProfile(req.session.userName, req.session.token);
+    res.render('details', { listing, profile }); 
+    }
 });
 
 router.get('/:id/update', async (req, res) => {
     id = req.params.id;
     listing = await getOneListing( id, req.session.token);
-    res.render('update', { id, failedListingUpdateMessage: req.flash('errorMessage')  });
+    res.render('update', { id, failedMessage: req.flash('errorMessage')  });
 })
 
 router.put('/:id', async (req, res) => {
     id = req.params.id;
     updatedListing = req.body;
+    listing = await getOneListing( id, req.session.token);
     success = await updateListing (updatedListing, id, req.session.token);
-    statusCode = res.status;
-    if(statusCode !== 200) {
-        req.flash('failedListingUpdateMessage', ' Something went wrong, please try again');
-        res.redirect('/:id/update'); 
+    if (!success) {
+        req.flash('errorMessage', 'Something went wrong. Please try again');
+        res.render('update', { id, failedMessage: req.flash('errorMessage')  });
+    } else {
+        res.redirect('/profile')
     }
-    else {res.redirect('/:id')}
 });
 
 router.delete('/:id', async (req,res) => {

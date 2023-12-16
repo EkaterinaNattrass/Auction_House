@@ -78,4 +78,8 @@ app.get('/about', (req, res) => {
     res.render('about')
 })
 
+app.get('/error', (req, res) => {
+    res.render('error')
+}) 
+
 app.listen(3000, () => {console.log('listening on port')});

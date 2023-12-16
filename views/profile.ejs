@@ -50,7 +50,7 @@
             </div>
           </div>
           <% if (failedUpdateMessage.length > 0) { %>
-            <div class="error-message">
+            <div class="alert alert-warning d-flex align-items-center justify-content-around">
               <% failedUpdateMessage.forEach(message => { %>
               <p><i class="fa-solid fa-triangle-exclamation"></i> <%= message %></p>
               <% }); %>
@@ -64,13 +64,7 @@
                 method="POST"
                 novalidate
                 class="validated-form"
-              ><select class="form-control mt-3" id="tag" name="tag">
-                <option value="tags">Tags</option>
-                <option value="art">#Art</option>
-                <option value="books">#Books</option>
-                <option value="furniture">#Furniture</option>
-                <option value="jewellery">#Jewellery</option>
-            </select>
+              >
                 <div class="my-3">
                   <label for="title" class="form-label black" >Title</label>
                   <textarea

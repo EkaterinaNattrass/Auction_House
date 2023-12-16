@@ -21,7 +21,6 @@ const updateListing = async function(updatedListing, id, token) {
         return statusCode === 200;
     }
     catch (err) {
-        console.log('error:' + err + err.status);
         return false;
     }
 }

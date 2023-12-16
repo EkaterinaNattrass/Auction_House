@@ -4,6 +4,20 @@
   <main>
     <div class="container-fluid">
       <div class="row justify-content-around p-3">
+        <% if (errorMessage.length > 0) { %>
+          <div class="alert alert-warning d-flex align-items-center justify-content-around">
+            <% errorMessage.forEach(message => { %>
+            <p><i class="fa-solid fa-triangle-exclamation"></i> <%= message %></p>
+            <% }); %>
+          </div>
+          <% } %>
+          <% if (successMessage.length > 0) { %>
+            <div class="alert alert-dark d-flex align-items-center justify-content-around" role="alert">
+              <% successMessage.forEach(message => { %>
+              <p><i class="fa-solid fa-circle-check"></i> <%= message %></p>
+              <% }); %>
+            </div>
+            <% } %>
         <div class="col-lg-3 mt-5 p-2">
           <form class="form-inline" action="/listings-loggedin/search" method="GET">
             <input
@@ -15,19 +29,6 @@
               id="search"
             />
           </form>
-          <div class="dropdown">
-            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Filter
-            </button>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/listings-loggedin">All the listings</a></li>
-              <li><a class="dropdown-item" href="/listings-loggedin/art">Art</a></li>
-              <li><a class="dropdown-item" href="/listings-loggedin/books">Books</a></li>
-              <li><a class="dropdown-item" href="/listings-loggedin/furniture">Furniture</a></li>
-              <li><a class="dropdown-item" href="/listings-loggedin/jewellery">Jewellery</a></li>
-              
-            </ul>
-          </div>
           <div class="card mt-5 p-2">
             <h5 class="card-header">
               <% if (profile.avatar) { %>

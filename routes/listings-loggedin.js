@@ -11,7 +11,7 @@ router.get('/', async (req, res) => {
     const listings = await getListings();
     const profile = await getProfile(req.session.userName, req.session.token);
     userName = req.session.userName;
-    res.render('listings-loggedin', { listings, profile })
+    res.render('listings-loggedin', { listings, profile, successMessage: req.flash('success'), errorMessage: req.flash('error') })
 });
 
 router.get('/search', async (req, res) => {
@@ -30,37 +30,19 @@ router.get('/search', async (req, res) => {
     res.render('search-loggedin', { filteredListings, profile});
 })
 
-router.get('/art', async (req, res) => {
-    const listings = await filterListings(req.session.token, 'art')
-    const profile = await getProfile(req.session.userName, req.session.token);
-    res.render('listings-loggedin', { listings, profile });
-});
-
-router.get('/books', async (req, res) => {
-    const listings = await filterListings(req.session.token, 'books')
-    const profile = await getProfile(req.session.userName, req.session.token);
-    res.render('listings-loggedin', { listings, profile });
-});
-
-router.get('/furniture', async (req, res) => {
-    const listings = await filterListings(req.session.token, 'furniture')
-    const profile = await getProfile(req.session.userName, req.session.token);
-    res.render('listings-loggedin', { listings, profile, });
-});
-
-router.get('/jewellery', async (req, res) => {
-    const listings = await filterListings(req.session.token, 'jewellery')
-    const profile = await getProfile(req.session.userName, req.session.token);
-    res.render('listings-loggedin', { listings, profile, });
-});
-
 router.post('/bid', async (req, res) => {
-    listing = await getOneListing( id, req.session.token);
-    id = listing.id; 
     amount = req.body.amount;
+    console.log(amount)
     const bid = parseInt(amount);
-    success = placeBid(bid, id, req.session.token);
-    res.redirect('/listings-loggedin')
+    console.log(bid)
+    success = await placeBid(bid, id, req.session.token);
+    if (!success) {
+        req.flash('error', 'Your bid wasn´t placed');
+        res.redirect('/listings-loggedin')   
+    } else {
+        req.flash('success', 'Your bid was successfully placed');
+        res.redirect('/listings-loggedin')
+    }
 });
 
 module.exports = router;

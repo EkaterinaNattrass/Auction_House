@@ -15,9 +15,17 @@
           </div>
         </div>
         <div class="col-lg-4 col-sm-8 my-5">
-        <div class="error-message text-center p-3"><%= successMessage %></div>
+          <% if ( successMessage.length > 0) { %>
+            <div class="alert alert-warning d-flex align-items-center justify-content-around">
+                <% successMessage.forEach ( message => { %>
+                    <p>
+                      <i class="fa-solid fa-circle-check"></i> <%= successMessage %></div>
+                    </p>
+                    <% }); %>
+            </div>
+            <% } %>
           <% if ( failedLoginMessage.length > 0) { %>
-            <div class="error-message text-center p-3">
+            <div class="alert alert-warning d-flex align-items-center justify-content-around">
                 <% failedLoginMessage.forEach ( message => { %>
                     <p>
                       <i class="fa-solid fa-triangle-exclamation"></i>  <%= message %>
