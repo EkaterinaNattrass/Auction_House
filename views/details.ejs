@@ -1,0 +1,115 @@
+<%- include('partials/head')%>
+<body>
+  <header><%- include('partials/nav-loggedin')%></header>
+  <main>
+    <div class="container p-3">
+      <div class="row justify-content-around">
+          <div class="col-lg-4 mt-5">
+            <div class="card mt-5 p-2">
+              <h5 class="card-header">
+                <% if (profile.avatar) { %>
+                  <img
+                  src="<%= profile.avatar %>"
+                  class="rounded-circle p-2"
+                  style="width: 70px; height: 70px"
+                  alt="avatar"
+                /> 
+               <% } %>
+                <a href="/profile"><%= profile.name.toUpperCase() %></a> 
+                </h5>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">You have <%= profile.credits %> credits</li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-6 mt-5">
+          <div class="card mb-3 p-2" style="max-width: 600px">
+            <div class="row g-0">
+              <div id="carousel" class="carousel slide">
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img
+                      src="<%= listing.media[0] %>"
+                      class="d-block w-100"
+                      alt="listing"
+                    />
+                  </div>
+                  <div class="carousel-item">
+                    <img
+                      src="images/steve-johnson-3Sf_G9m0gcQ-unsplash.jpg"
+                      class="d-block w-100"
+                      alt="listing"
+                    />
+                  </div>
+                  <div class="carousel-item">
+                    <img src="" class="d-block w-100" alt="listing" />
+                  </div>
+                </div>
+                <button
+                  class="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#carousel"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    class="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button
+                  class="carousel-control-next"
+                  type="button"
+                  data-bs-target="#carousel"
+                  data-bs-slide="next"
+                >
+                  <span
+                    class="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title"><%= listing.title %></h5>
+                  <p class="card-text"><%= listing.description %></p>
+                  <p class="card-text">
+                    <small class="text-body-secondary"
+                      >Ends: <%= listing.endsAt %></small
+                    >
+                  </p>
+                  <p class="card-text">
+                    <small class="text-body-secondary"
+                      >CURRENT BID <%= latestBid.amount %></small
+                    >
+                  </p>
+                </div>
+              </div>
+              <form class="row g-3" method="POST" action="/listings-loggedin/bid" >
+                <div class="col-auto">
+                  <label for="amount" class="visually-hidden">YOUR BID</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="amount"
+                    name="amount"
+                    placeholder="YOUR BID"
+                  />
+                </div>
+                <div class="col-auto">
+                  <input type="submit" class="btn btn-primary mb-3" value="CONFIRM YOUR BID" />
+                </div>
+              </form>
+              <div class="g-3 mb-3"><a href="/listings-loggedin" class="btn btn-outline-primary mt-4"
+                >BACK TO THE LISTINGS</a
+              ></div>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+  </main>
+  <%- include('partials/footer')%>
+</body>
+</html>

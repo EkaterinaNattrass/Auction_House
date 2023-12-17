@@ -1,0 +1,67 @@
+<%- include('partials/head')%>
+<body>
+  <header><%- include('partials/nav')%></header>
+  <main>
+    <div class="container-fluid">
+      <div class="row justify-content-around p-3">
+        <div class="col-lg-3 mt-5 p-2">
+          <div class="card mt-5 p-2">
+            <div class="card-header">OUR CONTACTS</div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Ole Nordman, Associate Specialist</li>
+              <li class="list-group-item">+47 0000000</li>
+              <li class="list-group-item">olenordman0000@mail.no</li>
+            </ul>
+          </div>
+          <div class="card mt-5 p-2">
+            <div class="card-header">NEWSLETTER</div>
+            <div class="card-body">
+              <p class="card-text">
+                Subscribe to our newsletter and receive exclusive content about
+                our auctions and special events
+              </p>
+              <form action="">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >Email address</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-9 mt-5 p-2">
+          <div class="row justify-content-around">
+            <% for (let listing of listings) { %>
+            <div class="card mb-5 shadow" style="width: 20rem">
+              <img
+                src="<%= listing.media %>"
+                class="card-img-top mt-2"
+                alt="image of the listing"
+              />
+              <div class="card-body">
+                <h5 class="card-title"><%= listing.title %></h5>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">
+                    CURRENT BID <%= listing._count.bids %>
+                  </li>
+                  <li class="list-group-item">ENDS: <%= listing.endsAt %></li>
+                </ul>
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer')%>
+</body>
+</html>

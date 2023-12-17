@@ -1,0 +1,81 @@
+$primary: #8c7345;
+$bg-color: #0f2334;
+$logo-text: #F2F2F2;
+$black-color: black;
+$logo-font: 'Cinzel', serif;
+
+main {
+  background-color: $bg-color;
+  min-height: calc(100vh - 0.5rem);
+}
+
+/*  * {
+  border: solid red 1px;
+}*/
+
+nav,
+footer {
+  background-color: $primary;
+  font-family: $logo-font;
+  color: $logo-text;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.nav-text {
+  font-family: $logo-font;
+  text-decoration: none;
+  color: $logo-text;
+  font-size: 18px;
+}
+
+footer {
+  min-height: 0.25rem;
+}
+
+footer a {
+  color: $logo-text;
+  text-decoration: none;
+}
+
+.logo-text {
+  color: $logo-text;
+  font-family: $logo-font;
+  font-size: 30px;
+}
+
+.auction-logo {
+  width: 100%;
+  height: auto;
+}
+
+.form-label {
+  color: $logo-text;
+}
+
+.white-text {
+  color: $logo-text;
+  font-size: 20px
+}
+
+.about-text {
+  color: $logo-text;
+  font-family: $logo-font;
+  font-size: 22px;
+  line-height: 3;
+}
+ 
+.listing-container {
+  background-color: $logo-text;
+}
+
+.error-message {
+  color: #F2F2F2;
+  font-size: larger;
+}
+
+.black {
+  color: black
+}
+
+@import "../node_modules/bootstrap/scss/bootstrap";

@@ -1,0 +1,31 @@
+<%- include('partials/head')%>
+<body>
+  <header><%- include('partials/nav-loggedin')%></header>
+  <main>
+    <div class="container">
+      <div class="row p-5 justify-content-around">
+        <div class="col-8 text-center">
+          <div
+          class="alert alert-warning d-flex align-items-center justify-content-around"
+          role="alert"
+        >
+          <div>
+            <i class="fa-solid fa-triangle-exclamation"></i> Oh no, something
+            went wrong!
+          </div>
+        </div>
+        <div>
+          <div class="g-3 mb-3">
+            <a href="/listings-loggedin" class="btn btn-outline-primary mt-4"
+              >BACK TO THE LISTINGS
+            </a>
+          </div>
+        </div>
+        </div>
+        
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer')%>
+</body>
+</html>

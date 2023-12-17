@@ -1,0 +1,187 @@
+<%- include('partials/head')%>
+<body>
+  <header><%- include('partials/nav-loggedin')%></header>
+  <main>
+    <div class="container">
+      <div class="row justify-content-around">
+        <div class="col-lg-4 col-sm-10">
+          <div class="my-5 text-center card p-2">
+            <div class="card-header mt-3">
+              <img src="<%= profile.avatar %>"" alt="avatar"
+              class="rounded-circle m-2" style="height: 100px; width: 100px" />
+              <span> Profile name:</span> <%= profile.name.toUpperCase() %>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <span>Email:</span> <%= profile.email %>
+              </li>
+              <li class="list-group-item">
+                <span>Credits:</span>
+                You have <%= profile.credits %> credits
+              </li>
+            </ul>
+            <div class="my-3">
+              <div class="card-header mt-3">AVATAR</div>
+              <form
+                action="/profile/update?_method=PUT"
+                method="POST"
+                class="d-grid gap-2 mb-3"
+              >
+                <div class="input-group mt-3">
+                  <span class="input-group-text" id="basic-addon3"
+                    >add a link</span
+                  >
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="avatar"
+                    name="avatar"
+                    aria-label="avatar"
+                  />
+                </div>
+                <div class="d-grid gap-2 mb-3">
+                  <input
+                    type="submit"
+                    class="btn btn-primary mt-4"
+                    value="UPDATE AVATAR"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+          <% if (failedUpdateMessage.length > 0) { %>
+            <div class="alert alert-warning d-flex align-items-center justify-content-around">
+              <% failedUpdateMessage.forEach(message => { %>
+              <p><i class="fa-solid fa-triangle-exclamation"></i> <%= message %></p>
+              <% }); %>
+            </div>
+            <% } %>
+          <div class="my-5 text-center card p-2">
+            <div class="g-3 mb-3 mt-3">
+              <div class="card-header">CREATE A NEW LISTING</div>
+              <form
+                action="/listings/new"
+                method="POST"
+                novalidate
+                class="validated-form"
+              >
+                <div class="my-3">
+                  <label for="title" class="form-label black" >Title</label>
+                  <textarea
+                    class="form-control"
+                    id="title"
+                    name="title"
+                    aria-label="title of a new listing"
+                    rows="1"
+                    required
+                  ></textarea>
+                  <div class="valid-feedback">Looks good!</div>
+                </div>
+                <div class="my-3">
+                  <label for="description" class="form-label black"
+                    >Description</label
+                  >
+                  <textarea
+                    class="form-control"
+                    id="description"
+                    name="description"
+                    aria-label="description of a new listing"
+                    rows="3"
+                    required
+                  ></textarea>
+                  <div class="valid-feedback">Looks good!</div>
+                </div>
+                <div class="my-3">
+                  <label for="endsAt" class="form-label black p-2">Deadline</label>
+                  <input
+                    type="datetime-local"
+                    id="endsAt"
+                    name="endsAt"
+                    value="2023-12-17T00:00:00"
+                    required
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                </div>
+                <div class="my-3">
+                  <label for="media" class="form-label black">Media links</label>
+                  <input
+                    type="text"
+                    class="form-control my-2"
+                    id="media1"
+                    name="media"
+                    aria-label="images of a new listing"
+                    rows="1"
+                    required
+                  />
+                  <input
+                    type="text"
+                    class="form-control my-2"
+                    id="media2"
+                    name="media"
+                    aria-label="images of a new listing"
+                    rows="1"
+                    required
+                  />
+                  <input
+                    type="text"
+                    class="form-control my-2"
+                    id="media3"
+                    name="media"
+                    aria-label="images of a new listing"
+                    rows="1"
+                    required
+                  />
+                  <div class="valid-feedback">Looks good!</div>
+                </div>
+                <div class="d-grid gap-2 my-4">
+                  <input type="submit" class="btn btn-primary" value="SUBMIT" />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5 col-sm-10">
+          <div class="card p-2 my-5">
+          <div class="card-header text-center my-3">YOUR LISTINGS</div>
+           <% for (let listing of listings) { %>
+              <div class="card shadow my-3">
+              <div class="card-img-top">
+              <img
+                class="card-img-top"
+                src="<%= listing.media[0] %>"
+                alt="listing"
+                /> 
+              </div>   
+              <div class="card-body">
+                <h5 class="card-title"><%= listing.title %></h5>
+                <p class="card-text"><%= listing.description %></p>
+              </div>
+              <div class="ms-3 mb-3">
+                <form action="/listings/<%= listing.id %>/update" method="GET">
+                  <input
+                    type="submit"
+                    class="btn btn-primary mt-4"
+                    value="UPDATE"
+                  />
+                </form>
+                <form
+                  action="/listings/<%= listing.id %>/?_method=DELETE"
+                  method="POST"
+                >
+                  <input
+                    type="submit"
+                    class="btn btn-outline-primary mt-4"
+                    value="DELETE"
+                  />
+                </form>
+              </div>
+            </div>
+            <% } %> 
+             </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer')%>
+</body>
+</html>

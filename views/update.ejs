@@ -1,0 +1,83 @@
+<%- include('partials/head')%>
+<body>
+  <header><%- include('partials/nav-loggedin')%></header>
+  <main>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mt-5">
+          <form
+            action="/listings/<%= listing.id %>?_method=PUT"
+            method="POST"
+          >
+            <div class="my-3">
+              <label for="title" class="form-label">Title</label>
+              <textarea
+                class="form-control"
+                id="title"
+                name="title"
+                aria-label="title of a new listing"
+                rows="1"
+                required
+              >
+              <%= listing.title %></textarea
+              >
+            </div>
+            <div class="my-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea
+                class="form-control"
+                id="description"
+                name="description"
+                aria-label="description of a new listing"
+                rows="3"
+                required
+              >
+              <%= listing.description %></textarea
+              >
+            </div>
+            <div class="my-3">
+              <label for="media" class="form-label">Media</label>
+              <input
+                type="text"
+                class="form-control mb-2"
+                id="media1"
+                name="media"
+                aria-label="image of a new listing"
+                value="<%= listing.media[0] %>"
+              />
+              <input
+                type="text"
+                class="form-control mb-2"
+                id="media2"
+                name="media"
+                aria-label="image of a new listing"
+                value="<%= listing.media[1] %>"
+              />
+              <input
+                type="text"
+                class="form-control mb-2"
+                id="media3"
+                name="media"
+                aria-label="image of a new listing"
+                value="<%= listing.media[2] %>"
+              />
+            </div>
+            <div class="d-grid gap-2">
+              <input type="submit" class="btn btn-primary" value="UPDATE" />
+            </div>
+          </form>
+        </div>
+      </div>
+      <% if (failedMessage.length > 0) { %>
+          <div class="alert alert-warning d-flex align-items-center justify-content-around mt-5">
+            <% failedMessage.forEach(message => { %>
+            <p><i class="fa-solid fa-triangle-exclamation"></i> <%= message %></p>
+            <% }); %>
+          </div>
+          <% } %>
+      </div>
+    </div>
+  </main>
+  <%- include('partials/footer')%>
+</body>
+</html>
