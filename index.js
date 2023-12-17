@@ -82,4 +82,12 @@ app.get('/error', (req, res) => {
     res.render('error')
 }) 
 
-app.listen(3000, () => {console.log('listening on port')});
+// Heroku deployment; defining the port
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
+app.listen(port, () => {
+    console.log('listening on port ' + port)
+})
