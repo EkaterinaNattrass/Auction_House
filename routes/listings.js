@@ -14,7 +14,8 @@ router.get('/', async (req, res) => {
     res.render('listings', { listings })
 });
 
-router.get('/:id', async(req,res) => {
+router.route('/:id')
+    .get( async(req,res) => {
     id = req.params.id;
     const listing = await getOneListing(id);
     listingBids = listing.bids;
@@ -25,15 +26,8 @@ router.get('/:id', async(req,res) => {
        const profile = await getProfile(req.session.userName, req.session.token);
     res.render('details', { listing, profile }); 
     }
-});
-
-router.get('/:id/update', async (req, res) => {
-    id = req.params.id;
-    listing = await getOneListing( id, req.session.token);
-    res.render('update', { id, failedMessage: req.flash('errorMessage')  });
 })
-
-router.put('/:id', async (req, res) => {
+    .put( async (req, res) => {
     id = req.params.id;
     updatedListing = req.body;
     listing = await getOneListing( id, req.session.token);
@@ -45,6 +39,14 @@ router.put('/:id', async (req, res) => {
         res.redirect('/profile')
     }
 });
+
+router.get('/:id/update', async (req, res) => {
+    id = req.params.id;
+    listing = await getOneListing( id, req.session.token);
+    res.render('update', { id, failedMessage: req.flash('errorMessage')  });
+})
+
+
 
 router.delete('/:id', async (req,res) => {
     id = req.params.id;
