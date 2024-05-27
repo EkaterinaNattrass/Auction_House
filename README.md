@@ -16,17 +16,17 @@ A website for people who are interested in buying and selling antiques. The targ
 
 ## Built with
 
-Express
-EJS
-Path
-Bootstrap
-SASS
-Body-parser
-Connect-flash
-Express-session
-Method-override
-Node-fetch
-Passport
+- Express
+- EJS
+- Path
+- Bootstrap
+- SASS
+- Body-parser
+- Connect-flash
+- Express-session
+- Method-override
+- Node-fetch
+- Passport
 
 ##  Getting started
 
